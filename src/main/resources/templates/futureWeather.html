@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Pogoda na 4 dni</title>
+</head>
+
+<body>
+
+    <div style="text-align:center; ">
+        <h2>Witaj w centrum informacji o pogodzie!</h2>
+
+        <h5>Prognoza pogody na 4 następne dni dla:</h5><br/>
+
+        <h4 class="alert-heading"  th:text="'miasto: '+${weatherData.getCity()}+
+                                    ' - szerokość geograficzna: '+${weatherData.getLat()}+
+                                    ' - długość geograficzna: '+${weatherData.getLon()}"></h4>
+
+        <div class="alert alert-success" th:each="weather : ${weatherData.getListOfFutureData()}">
+            <h4 th:text="${weather.getLocalDateTime().getDayOfMonth()}+'.'+${weather.getLocalDateTime().getMonth()}+
+                        '.'+${weather.getLocalDateTime().getYear()}"></h4>
+            <h5 th:text="'godz: 0:00 - 6:00 '+' temperatura: '+${weather.getNightTemperature()}+
+                        ' st.C - ciśnienie: '+${weather.getNightPressure()}+' hPa'"></h5>
+            <h5 th:text="'godz: 12:00 - 18:00 '+' temperatura: '+${weather.getDayTemperature()}+
+                        ' st.C - ciśnienie: '+${weather.getDayPressure()}+' hPa'"></h5>
+        </div><br/>
+
+        <a href="/index"><input type="submit" value="Strona główna!" class="btn btn-default"></a><br/><br/>
+
+    </div>
+
+</body>
+</html>

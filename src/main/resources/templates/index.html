@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Strona główna</title>
+</head>
+
+<body>
+    <div style="text-align:center; ">
+        <h2>Witaj w centrum informacji o pogodzie!</h2>
+
+        <h5>Wypełnij formularz aby sprawdzić pogodę:</h5><br/>
+
+        <div th:if="${infoAboutErrors1 != null}" class="alert alert-danger">
+            <strong th:text="${infoAboutErrors1}">Error</strong>
+        </div>
+
+        <form action="/findCurrent" method="post" th:object="${cityForm}">
+            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Error</span>
+            <input type="text" class="form-control" placeholder="Miasto" th:field="*{city}"/> <br/>
+
+            <span th:if="${#fields.hasErrors('countryCode')}" th:errors="*{countryCode}">Error</span>
+            <input type="text" class="form-control" placeholder="Kod kraju" th:field="*{countryCode}"/><br/>
+
+            <input type="submit" value="Pokaż aktualne warunki pogodowe!" class="btn btn-default">
+        </form><br/><br/>
+
+    </div>
+
+</body>
+</html>

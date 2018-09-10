@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Obecne warunki pogodowe</title>
+</head>
+
+<body>
+
+    <div style="text-align:center; ">
+        <h2>Witaj w centrum informacji o pogodzie!</h2>
+
+        <div th:if="${infoAboutErrors2 == null}">
+            <h5>Obecne warunki pogodowe dla:</h5><br/>
+
+            <h4 class="alert-heading"  th:text="'miasto: '+${weatherData.getCity()}+' - kod kraju: '+
+                                    ${weatherData.getCountryCode()}+' - szerokość geograficzna: '+
+                                    ${weatherData.getLat()}+' - długość geograficzna: '+${weatherData.getLon()}"></h4>
+
+            <h4 class="alert alert-success"  th:text="'temperatura: '+${weatherData.getTemperature()}+' st.C'"></h4>
+            <h4 class="alert alert-success"  th:text="'ciśnienie: '+${weatherData.getPressure()}+' hPa'"></h4>
+            <h4 class="alert alert-success"  th:text="'widoczność: '+${weatherData.getVisibility()}+' m'"></h4>
+            <h4 class="alert alert-success"  th:text="'zanieczyszczenie powietrza: '+${weatherData.getAirPollution()}">
+            </h4>
+        </div>
+
+        <a href="/index"><input type="submit" value="Strona główna!" class="btn btn-default"></a><br/><br/>
+
+        <br/>
+
+        <div th:if="${infoAboutErrors2 != null}" class="alert alert-danger">
+            <strong th:text="${infoAboutErrors2}">Error</strong>
+        </div>
+
+        <form action="/findFuture" method="post" th:object="${cityForm}">
+            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Error</span>
+            <input type="text" class="form-control" placeholder="Miasto" th:field="*{city}"/> <br/>
+
+            <span th:if="${#fields.hasErrors('countryCode')}" th:errors="*{countryCode}">Error</span>
+            <input type="text" class="form-control" placeholder="Kod kraju" th:field="*{countryCode}"/><br/>
+
+            <input type="submit" value="Pokaż pogodę na 4 dni!" class="btn btn-default">
+        </form><br/><br/>
+
+    </div>
+
+</body>
+</html>
